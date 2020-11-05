@@ -1,0 +1,57 @@
+<%- include ../partials/header.ejs%>
+
+<%- include ../partials/main_nav.ejs%>   
+
+
+<!--Main Content-->
+  <main class="container">       
+    <div class="row">
+        <div class="offset-md-1 col-md-10">
+            <h1><%= title %> </h1>
+            
+            <% if (typeof displayName == 'string' && displayName) { %>
+            <a href="/movie-list/add" class="btn btn-primary">
+            <i class="fas fa-plus-circle"></i>Add a movie</a>
+            <% } %>
+            <br>
+            <table class="table table-bordered table-striped table-hover">
+                <!-- Header Row-->
+                <tr>
+                    <th class="text-center col-3">Title</th>
+                    <th class="text-center col-3">IMDB Rating</th>
+                    <th class="text-center col-2">Year</th>
+                    <th class="text-center col-2">Price</th>
+                    <% if (typeof displayName == 'string' && displayName) { %>
+                        <th class="text-center col-2"></th>
+                        <th class="text-center col-2"></th>
+                    <% } %>
+                </tr>
+                <!-- Repeatable Template Row -->
+
+                <%for (let count = 0; count < MovieList.length; count++){ %>
+                    <tr>
+                        <td class="text-center col-4"><%= MovieList[count].title %></td>
+                        <td class="text-center col-3"><%= MovieList[count].Rating_IMDB %></td>
+                        <td class="text-center col-3"><%= MovieList[count].Year %></td>  
+                        <td class="text-center col-3">$<%= MovieList[count].Price %></td>                       
+                         
+                        <% if (typeof displayName == 'string' && displayName) { %>
+                            <td class="text-center col-1">
+                                <a href="/movie-list/edit/<%= MovieList[count].id %>" class="btn btn-primary">
+                                <i class="fas fa-pencil-alt"></i>Edit</a>
+                            </td>
+                            <td class="text-center col-1">
+                                <a href="movie-list/delete/<%= MovieList[count].id %>" class="btn btn-danger">
+                                <i class="fas fa-trash-alt"></i>Delete</a>
+                            </td>
+                        <% } %>                        
+                    </tr>
+                <% } %> 
+            </table>
+        </div>
+    </div>
+  </main> 
+
+<%- include ../partials/bottom_nav.ejs%>
+
+<%- include ../partials/footer.ejs%>
